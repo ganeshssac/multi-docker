@@ -2,11 +2,11 @@ sudo: required
 services: 
   - docker
 language: node_js
-# node_js:
-#   - "stable"
+node_js:
+  - "stable"
 
 # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # using the Dockerfile.dev to test run test cases 
 before install: 
   - docker build -t ganeshssac/multi-docker -f ./client/Dockerfile.dev ./client
@@ -24,7 +24,7 @@ after_success:
 
 
   # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
 
   # Take the above images & push  to docker hub.
