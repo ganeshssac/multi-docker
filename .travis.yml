@@ -9,11 +9,11 @@ node_js:
   #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # using the Dockerfile.dev to test run test cases 
 before install: 
-  - docker build -t ganeshssac/multi-docker -f ./client/Dockerfile.dev ./client
+  - docker build -t ganeshssac/react-test -f ./client/Dockerfile.dev ./client
 
 
 script:
-  - docker run ganeshssac/multi-docker npm run test -- --coverage
+  - docker run ganeshssac/react-test npm test -- --coverage
 
 # building the docker container images using dockerfile in the relative folders for production build.
 after_success:
