@@ -1,14 +1,16 @@
 sudo: required
 services: 
   - docker
-language: nodejs
+language: node_js
+node_js:
+  - "stable"
 
 before install: # using the Dockerfile.dev to test run test cases 
   - docker build -t ganesh/react-test -f ./client/Dockerfile.dev ./client
 
 
 script:
-  - docker run ganesh/react-test npm test -- --coverage
+  - docker run ganesh/react-test npm run test -- --coverage
 
 after_success:
   - docker build -t ganesh/multi-client ./client
