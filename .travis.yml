@@ -4,6 +4,9 @@ services:
 # language: node_js
 # node_js:
 #   - "stable"
+
+# Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
 # using the Dockerfile.dev to test run test cases 
 before install: 
   - docker build -t ganesh/react-test -f ./client/Dockerfile.dev ./client
@@ -12,6 +15,7 @@ before install:
 script:
   - docker run ganesh/react-test npm run test -- --coverage
 
+# building the docker container images using dockerfile in the relative folders for production build.
 after_success:
   - docker build -t ganesh/multi-client ./client
   - docker build -t ganesh/multi-nginx ./nginx
