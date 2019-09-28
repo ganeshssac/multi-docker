@@ -1,0 +1,39 @@
+sudo: required
+services: 
+  - docker
+language: nodejs
+
+before install: # using the Dockerfile.dev to test run test cases 
+  - docker build -t ganesh/react-test -f ./client/Dockerfile.dev ./client
+
+
+script:
+  - docker run ganesh/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t ganesh/multi-client ./client
+  - docker build -t ganesh/multi-nginx ./nginx
+  - docker build -t ganesh/multi-server ./server
+  - docker build -t ganesh/multi-worker ./worker
+
+
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+
+
+  # Take the above images & push  to docker hub.
+
+  - docker push ganesh/multi-client
+  - docker push ganesh/multi-nginx
+  - docker push ganesh/multi-server
+  - docker push ganesh/multi-worker
+
+
+
+
+
+
+
+
+
+  
