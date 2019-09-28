@@ -5,11 +5,10 @@ language: node_js
 node_js:
   - "stable"
 
-# Log in to the docker CLI
-  #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
 # using the Dockerfile.dev to test run test cases 
-before install: 
-  - docker pull ganeshssac/multi-docker
+before_install: 
+  
   - docker build -t ganeshssac/react-test -f ./client/Dockerfile.dev ./client
 
 
