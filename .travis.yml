@@ -9,18 +9,18 @@ services:
   - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
 # using the Dockerfile.dev to test run test cases 
 before install: 
-  - docker build -t ganesh/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t ganeshssac/react-test -f ./client/Dockerfile.dev ./client
 
 
 script:
-  - docker run ganesh/react-test npm run test -- --coverage
+  - docker run ganeshssac/react-test npm test -- --coverage
 
 # building the docker container images using dockerfile in the relative folders for production build.
 after_success:
-  - docker build -t ganesh/multi-client ./client
-  - docker build -t ganesh/multi-nginx ./nginx
-  - docker build -t ganesh/multi-server ./server
-  - docker build -t ganesh/multi-worker ./worker
+  - docker build -t ganeshssac/multi-client ./client
+  - docker build -t ganeshssac/multi-nginx ./nginx
+  - docker build -t ganeshssac/multi-server ./server
+  - docker build -t ganeshssac/multi-worker ./worker
 
 
   # Log in to the docker CLI
@@ -29,10 +29,10 @@ after_success:
 
   # Take the above images & push  to docker hub.
 
-  - docker push ganesh/multi-client
-  - docker push ganesh/multi-nginx
-  - docker push ganesh/multi-server
-  - docker push ganesh/multi-worker
+  - docker push ganeshssac/multi-client
+  - docker push ganeshssac/multi-nginx
+  - docker push ganeshssac/multi-server
+  - docker push ganeshssac/multi-worker
 
 
 
